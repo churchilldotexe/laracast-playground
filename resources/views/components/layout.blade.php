@@ -20,7 +20,7 @@
                         <div class="flex items-baseline ml-10 space-x-4">
                             <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
                             <x-nav-link href="/" :active="request()->is('/')">Home</x-nav-link>
-                            <x-nav-link href="/about" :active="request()->is('about')">About</x-nav-link>
+                            <x-nav-link href="/jobs" :active="request()->is('about')">Jobs</x-nav-link>
                             <x-nav-link href="/contacts" :active="request()->is('contacts')">Contacts</x-nav-link>
                         </div>
                     </div>
@@ -126,12 +126,12 @@
 
     <header class="bg-white shadow">
         <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Dashboard</h1>
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $title }}</h1>
         </div>
     </header>
     <main>
         <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <!-- Your content -->
+            {{ $slot }}
         </div>
     </main>
 </div>
