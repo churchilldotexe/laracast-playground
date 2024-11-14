@@ -125,8 +125,11 @@
     </nav>
 
     <header class="bg-white shadow">
-        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div class="px-4 py-6 mx-auto max-w-7xl sm:px-6 lg:px-8 flex items-center justify-between">
             <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ $title }}</h1>
+            <div>
+                <x-link href="/jobs/create">Create Job</x-link>
+            </div>
         </div>
     </header>
     <main>

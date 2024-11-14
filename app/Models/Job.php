@@ -16,21 +16,20 @@ class Job extends Model
     protected $guarded = ['id'];
 
     /**
-     * @return Illuminate\Database\Eloquent\Relations\BelongsTo<App\Models\Employer,App\Models\Job>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<App\Models\Employer,App\Models\Job>
      */
     public function employer(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return  $this->belongsTo(Employer::class);
-
+        return $this->belongsTo(Employer::class);
     }
 
     /**
-     * @return Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Tag,App\Models\Job>
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany<App\Models\Tag,App\Models\Job>
      **/
     public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
 
-        return $this->belongsToMany(Tag::class, foreignPivotKey:"job_listing_id");
+        return $this->belongsToMany(Tag::class, foreignPivotKey: "job_listing_id");
 
     }
 

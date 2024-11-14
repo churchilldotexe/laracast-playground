@@ -1,32 +1,64 @@
 <?php
 
-use App\Models\Job;
+use App\Http\Controllers\JobController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+use function Pest\Laravel\get;
 
-Route::get('/jobs', function () {
-    $job = Job::with('employer')->latest()->paginate(5);
-    return view('jobs.index', ['jobs' => $job ]);
-});
+Route::view('/', 'home');
 
-Route::post('/jobs', function () {
-    $title = request('title');
-    $salary = request('salary');
-    $employer_id = '1';
-    Job::query()->create(compact('title', 'salary', 'employer_id'));
+Route::view('/contacts', 'contacts');
 
-    return redirect('/jobs');
-});
-Route::get('/jobs/create', function () {
-    return view('jobs.create');
-});
-Route::get('/jobs/{id}', function ($id) {
-    return view('jobs.job', ['job' => Job::query()->find($id) ]);
-});
+// ---- OPTION 1 ----
+// // index
+// Route::get('/jobs', [JobController::class , 'index']);
+//
+// //store
+// Route::post('/jobs', [JobController::class,'store']);
+//
+// //create
+// Route::get('/jobs/create', [JobController::class, 'create']);
+//
+// //show
+// Route::get('/jobs/{job}', [JobController::class,'show']);
+//
+//
+// //edit
+// Route::get('/jobs/{job}/edit', [JobController::class, 'edit']);
+//
+// //update
+// Route::patch('/jobs/{job}', [JobController::class, 'update']);
+//
+// // delete
+// Route::delete('/jobs/{job}', [JobController::class,'destroy']);
 
-Route::get('/contacts', function () {
-    return view('contacts');
-});
+//---- OPTION 2 ----
+// Route::controller(JobController::class)->group(function () {
+
+//     // index
+//     Route::get('/jobs', 'index');
+
+//     //store
+//     Route::post('/jobs', 'store');
+
+//     //create
+//     Route::get('/jobs/create', 'create');
+
+//     //show
+//     Route::get('/jobs/{job}', 'show');
+
+//     //edit
+//     Route::get('/jobs/{job}/edit', 'edit');
+
+//     //update
+//     Route::patch('/jobs/{job}', 'update');
+
+//     // delete
+//     Route::delete('/jobs/{job}', 'destroy');
+// });
+
+// ---- OPTION 3 -----
+
+Route::resource('jobs', JobController::class);
+// Route::resource('jobs', JobController::class, ['only' => ['show', 'create', 'index']]);
+// Route::resource('jobs', JobController::class, ['except' => ['show', 'create', 'index']]);

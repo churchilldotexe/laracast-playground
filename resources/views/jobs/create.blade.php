@@ -19,6 +19,10 @@
                                     class="block flex-1 border-0 bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                     placeholder="Project Lead">
                             </div>
+
+                            @error('title')
+                                <p class="text-red-500 italic">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
@@ -31,6 +35,9 @@
                                     class="block flex-1 border-0 bg-transparent p-2 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm/6"
                                     placeholder="$50,000">
                             </div>
+                            @error('salary')
+                                <p class="text-red-500 italic">{{ $message }}</p>
+                            @enderror
                         </div>
                     </div>
 
