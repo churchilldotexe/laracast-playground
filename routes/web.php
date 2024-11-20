@@ -35,39 +35,47 @@ Route::view('/contacts', 'contacts');
 // Route::delete('/jobs/{job}', [JobController::class,'destroy']);
 
 //---- OPTION 2 ----
-// Route::controller(JobController::class)->group(function () {
+Route::controller(JobController::class)->group(function () {
 
-//     // index
-//     Route::get('/jobs', 'index');
+    // index
+    Route::get('/jobs', 'index');
 
-//     //store
-//     Route::post('/jobs', 'store');
+    //store
+    Route::post('/jobs', 'store')
+        ->middleware('auth');
 
-//     //create
-//     Route::get('/jobs/create', 'create');
+    //create
+    Route::get('/jobs/create', 'create')
+        ->middleware('auth');
 
-//     //show
-//     Route::get('/jobs/{job}', 'show');
+    //show
+    Route::get('/jobs/{job}', 'show');
 
-//     //edit
-//     Route::get('/jobs/{job}/edit', 'edit');
+    //edit
+    Route::get('/jobs/{job}/edit', 'edit')
+        ->middleware('auth')
+        ->can('edit', 'job');
 
-//     //update
-//     Route::patch('/jobs/{job}', 'update');
+    //update
+    Route::patch('/jobs/{job}', 'update')
+        ->middleware('auth')
+        ->can('edit', 'job');
 
-//     // delete
-//     Route::delete('/jobs/{job}', 'destroy');
-// });
+    // delete
+    Route::delete('/jobs/{job}', 'destroy')
+        ->middleware('auth')
+        ->can('edit', 'job');
+});
 
 // ---- OPTION 3 -----
 
-Route::resource('jobs', JobController::class);
+// Route::resource('jobs', JobController::class);
 // Route::resource('jobs', JobController::class, ['only' => ['show', 'create', 'index']]);
 // Route::resource('jobs', JobController::class, ['except' => ['show', 'create', 'index']]);
-//
+
 Route::get('/register', [RegisterController::class, 'create']);
 Route::post('/register', [RegisterController::class, 'store']);
 
-Route::get('/login', [SessionController::class,'create']);
+Route::get('/login', [SessionController::class,'create'])->name('login');
 Route::post('/login', [SessionController::class,'store']);
 Route::post('/logout', [SessionController::class,'destroy']);

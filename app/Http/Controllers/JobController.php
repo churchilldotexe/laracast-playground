@@ -50,8 +50,20 @@ class JobController extends Controller
     /**
      * @return View
      */
-    public function edit(Job $job): View
+    public function edit(Job $job)
     {
+
+        // moved to provider for the project wide access
+        // Gate::define('edit-job', function (User $user, Job $job) {
+        //     return  $job->employer->user->is($user);
+        // });
+
+        // since define is moved to provider i can automatically check for logged in user
+        // if (Auth::guest()) {
+        //     return redirect('/login');
+        // }
+        // Gate::authorize('edit-job', $job);
+
         return view('jobs.edit', ['job' => $job]);
     }
     /**

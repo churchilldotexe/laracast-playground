@@ -5,6 +5,8 @@ namespace App\Models;
 use App;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Employer extends Model
 {
@@ -18,6 +20,14 @@ class Employer extends Model
     {
 
         return $this->hasMany(App\Models\Job::class);
+    }
+
+    /**
+     * @return BelongsTo<App\Models\User,App\Models\Employer>
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 
 }
