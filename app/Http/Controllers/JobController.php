@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\JobCreated;
 use App\Models\Job;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class JobController extends Controller
 {
@@ -16,6 +19,7 @@ class JobController extends Controller
         $job = Job::with('employer')->latest()->paginate(5);
         return view('jobs.index', ['jobs' => $job ]);
     }
+
     /**
      * @return RedirectResponse
      */
@@ -28,8 +32,13 @@ class JobController extends Controller
 
         $title = request('title');
         $salary = request('salary');
-        $employer_id = '1';
-        Job::query()->create(compact('title', 'salary', 'employer_id'));
+        $employer_id = '1' ;
+        $job = Job::query()->create(compact('title', 'salary', 'employer_id'));
+
+        Mail::to($job->employer->user)->send(
+            // getting the user through relation.. job one to one : employer -> one to one to user
+            new JobCreated($job)
+        );
 
         return redirect('/jobs');
     }
@@ -53,12 +62,12 @@ class JobController extends Controller
     public function edit(Job $job)
     {
 
-        // moved to provider for the project wide access
+        // NOTE: moved to provider for the project wide access
         // Gate::define('edit-job', function (User $user, Job $job) {
         //     return  $job->employer->user->is($user);
         // });
 
-        // since define is moved to provider i can automatically check for logged in user
+        // NOTE: since define is moved to provider i can automatically check for logged in user
         // if (Auth::guest()) {
         //     return redirect('/login');
         // }

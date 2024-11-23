@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <div class="flex items-center justify-end p-4  gap-x-6">
+        <div class="flex items-center justify-end p-4 gap-x-6">
             <a href='/' class="font-semibold text-gray-900 text-sm/6">Cancel</a>
             <x-form-button>Register</x-form-button>
         </div>

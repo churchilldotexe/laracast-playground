@@ -9,12 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 class Job extends Model
 {
     use HasFactory;
-    protected $table = 'job_listings';
+    protected $table = "job_listings";
 
     // protected $fillable = ['salary','title','employer_id','created_at','updated_at'];
     // or
-    protected $guarded = ['id'];
-
+    protected $guarded = ["id"];
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo<App\Models\Employer,App\Models\Job>
      */
@@ -28,9 +27,9 @@ class Job extends Model
      **/
     public function tags(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
     {
-
-        return $this->belongsToMany(Tag::class, foreignPivotKey: "job_listing_id");
-
+        return $this->belongsToMany(
+            Tag::class,
+            foreignPivotKey: "job_listing_id"
+        );
     }
-
 }
